@@ -8,6 +8,7 @@ const Header = () => {
       <nav className='space-x-3'>
         <NavLink to='/about'>About</NavLink>
         <NavLink to='/Contact'>Contact</NavLink>
+
       </nav>
 
     </div>

@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound'
 import Contact from './pages/Contact'
 import RootLayout from './components/RootLayout'
 
+
 const App = () => {
   return (
     <>
@@ -15,6 +16,7 @@ const App = () => {
           <Route path='/' element={<HomePage />} />
           <Route path='about' element={<About />} />
           <Route path='contact' element={<Contact />} />
+
           <Route path='*' element={<NotFound />} />
 
 
