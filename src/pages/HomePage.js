@@ -1,33 +1,75 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import Detail from './Detail';
 
-import UserForm from '../components/UserForm';
+
 
 
 const HomePage = () => {
-  setTimeout(() => {
-    console.log('hello jee');
-  }, 4000);
+  const [movieData, setData] = useState(null);
+  const [isLoad, setLoad] = useState(false);
+  const [isErr, setErr] = useState(false);
+  const [id, setId] = useState(null);
 
-  // const image = 'https://images.unsplash.com/photo-1706391989349-7882ece26c0c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8';
-  // const image1 = 'https://images.unsplash.com/photo-1682686581854-5e71f58e7e3f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8';
-  // const title = 'title1'
-  // const detail = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa quos quam cum quis praesentium quidem nihil excepturi itaque atque voluptatem.'
+  const getMovie = async () => {
+    try {
+      const response = await axios.get('http://www.omdbapi.com', {
+        params: {
+          'apikey': '45c8f021',
+          's': 'movie'
+        }
+      });
+      setData(response.data.Search);
+    } catch (err) {
+
+    }
+  }
+
+  useEffect(() => {
+    getMovie();
+  }, [])
+
+
+
+
+  // axios.get('https://api.themoviedb.org/3/movie/popular',
+  //   {
+  //     params: {
+  //       'api_key': 'f74a17a7b2652440861237b836c503b8',
+
+  //     }
+  //   }
+  // ).then((res) => {
+  //   console.log(res.data);
+
+  // }).catch((err) => {
+
+  // });
+  // console.log('render');
+
+
 
 
 
   return (
-    <div className='p-7'>
+    <div className='grid grid-cols-2'>
 
-      {/* <CardDisplay image={image} />
-      <CardDisplay image={image1} title={title} detail={detail} /> */}
+      <div>
+        {/* <button onClick={() => setData(data + 1)}>click me</button>
+      <h1>{data}</h1> */}
+        {movieData && movieData.map((movie) => {
+          return <div key={movie.imdbID}>
+            <h1>{movie.Title}</h1>
+            <img onClick={() => setId(movie.imdbID)} className='cursor-pointer' src={movie.Poster} alt="" />
+          </div>
+        })}
+      </div>
+
+      <div>
+        <Detail id={id} />
+      </div>
 
 
-
-      {/* <h1>This is a Home Page</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quas beatae, unde deleniti eaque delectus! Quisquam illo ipsam culpa suscipit?</p> */}
-
-
-      <UserForm />
 
 
     </div>
