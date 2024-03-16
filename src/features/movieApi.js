@@ -1,22 +1,26 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseUrl, credential } from '../app/apis_cre';
 
 
 
 
 
 export const movieSlice = createApi({
-  reducerPath: 'movieSlice',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3' }),
+  reducerPath: 'movieApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseUrl,
+    headers: {
+      Authorization: credential
+
+    }
+  }),
 
   endpoints: (builder) => ({
 
     categoryMovie: builder.query({
-      query: () => ({
+      query: (query) => ({
         url: '/movie/popular',
-        headers: {
 
-
-        },
         method: 'GET'
 
       })
